@@ -1,0 +1,23 @@
+项目类型：高中物理教学动画演示平台
+
+技术栈：
+- Vue 3
+- TypeScript
+- Vite
+- Vue Router
+- Pinia
+- Canvas 动画
+- ECharts 或 Chart.js 图表
+
+目录规范：
+- src/views 放页面
+- src/components 放通用组件
+- src/router 放路由
+- src/stores 放状态管理
+- src/utils 放物理公式和动画工具
+
+编码要求：
+- 使用 Composition API
+- 使用 TypeScript
+- 组件使用 defineProps / defineEmits
+- 页面结构清晰，方便课堂演示和后续扩展
