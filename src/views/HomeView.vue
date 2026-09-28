@@ -1,48 +1,28 @@
 <script setup lang="ts">
-interface Lesson {
-  title: string
-  summary: string
-  to: string
-}
-
-interface Chapter {
-  title: string
-  lessons: Lesson[]
-}
-
-const chapters: Chapter[] = [
-  {
-    title: '运动学',
-    lessons: [
-      {
-        title: '匀变速直线运动',
-        summary: '调节初速度和加速度，对照动画、v-t 图像和 x-t 图像。',
-        to: '/kinematics',
-      },
-    ],
-  },
-]
+import { RouterLink } from 'vue-router'
+import { topics } from '@/data/lessons'
 </script>
 
 <template>
   <main class="home">
     <h1>知识点导航</h1>
-    <p class="lead">选择一个知识点，进入课堂演示。</p>
+    <p class="lead">选择一个专题，进入课堂演示。</p>
 
-    <section v-for="chapter in chapters" :key="chapter.title" class="chapter">
-      <h2>{{ chapter.title }}</h2>
-      <div class="lessons">
-        <RouterLink
-          v-for="lesson in chapter.lessons"
-          :key="lesson.to"
-          class="lesson"
-          :to="lesson.to"
-        >
-          <h3>{{ lesson.title }}</h3>
-          <p>{{ lesson.summary }}</p>
-        </RouterLink>
-      </div>
-    </section>
+    <div class="topics">
+      <RouterLink
+        v-for="topic in topics"
+        :key="topic.to"
+        class="topic"
+        :to="topic.to"
+        :style="{ backgroundImage: `url(${topic.cover})` }"
+      >
+        <span class="topic-shade" />
+        <span class="topic-body">
+          <h2>{{ topic.title }}</h2>
+          <p>{{ topic.summary }}</p>
+        </span>
+      </RouterLink>
+    </div>
   </main>
 </template>
 
@@ -53,43 +33,61 @@ const chapters: Chapter[] = [
 }
 
 .lead {
-  margin: 0.4rem 0 1.5rem;
+  margin: 0.4rem 0 1.25rem;
 }
 
-.chapter + .chapter {
-  margin-top: 1.5rem;
-}
-
-.chapter h2 {
-  margin-bottom: 0.75rem;
-  font-size: 1.1rem;
-  color: var(--color-heading);
-}
-
-.lessons {
+.topics {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
 }
 
-.lesson {
-  display: block;
-  padding: 1rem 1.1rem;
+.topic {
+  position: relative;
+  display: flex;
+  min-height: 180px;
+  overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--color-background-soft);
+  border-radius: 12px;
+  background-color: #1e3a8a;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
 }
 
-.lesson h3 {
-  margin-bottom: 0.35rem;
-  color: var(--color-heading);
+.topic-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.28), rgba(15, 23, 42, 0.72));
 }
 
-.lesson p {
-  color: var(--color-text);
+.topic-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  padding: 1.15rem 1.2rem;
 }
 
-.lesson:hover {
+.topic h2 {
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.topic p {
+  max-width: 28ch;
+  color: rgba(248, 250, 252, 0.92);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.topic:hover {
   border-color: #1d4ed8;
+}
+
+.topic:hover .topic-shade {
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.18), rgba(29, 78, 216, 0.72));
 }
 </style>

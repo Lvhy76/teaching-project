@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+
+const route = useRoute()
 </script>
 
 <template>
@@ -8,7 +10,18 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink class="brand" to="/">高中物理动画演示</RouterLink>
       <nav>
         <RouterLink to="/">首页</RouterLink>
-        <RouterLink to="/kinematics">匀变速直线运动</RouterLink>
+        <RouterLink
+          to="/kinematics"
+          :class="{ 'is-current': route.path.startsWith('/kinematics') }"
+        >
+          运动学专题
+        </RouterLink>
+        <RouterLink
+          to="/electromagnetism"
+          :class="{ 'is-current': route.path.startsWith('/electromagnetism') }"
+        >
+          电磁学专题
+        </RouterLink>
       </nav>
     </header>
     <RouterView />
@@ -44,7 +57,8 @@ nav a {
   color: var(--color-text);
 }
 
-nav a.router-link-exact-active {
+nav a.router-link-exact-active,
+nav a.is-current {
   background: #1d4ed8;
   color: #fff;
 }

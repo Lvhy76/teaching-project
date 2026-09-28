@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import ControlSlider from '@/components/ControlSlider.vue'
 import MotionCanvas from '@/components/MotionCanvas.vue'
@@ -45,7 +46,10 @@ function formatValue(value: number): string {
 <template>
   <main class="page">
     <header class="page-header">
-      <p class="crumb">运动学</p>
+      <p class="crumb">
+        <RouterLink to="/kinematics">运动学专题</RouterLink>
+        ／ 匀变速直线运动
+      </p>
       <h1>匀变速直线运动</h1>
       <p class="formula">v = v₀ + at，x = x₀ + v₀t + ½at²。取 x₀ = 0。</p>
     </header>
@@ -95,7 +99,8 @@ function formatValue(value: number): string {
   margin-bottom: 1rem;
 }
 
-.crumb {
+.crumb,
+.crumb a {
   color: #1d4ed8;
   font-size: 0.9rem;
 }
