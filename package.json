@@ -8,8 +8,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build",
-    "build:gitee": "npm run type-check && vite build --base /teaching-project/ && node ./scripts/prepare-gitee-pages.mjs"
+    "type-check": "vue-tsc --build"
   },
   "dependencies": {
     "pinia": "^4.0.3",
